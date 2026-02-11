@@ -960,7 +960,30 @@ Te amo con todo mi corazón. 💕
                     setupCarousel();
                 });
 
-                let autoRotate = setInterval(() => { currRotation -= 0.5; carousel.style.transform = `rotateY(${currRotation}deg)`; }, 50);
+                function controlVideos() {
+    const videos = document.querySelectorAll('.carousel-item-3d video');
+
+    videos.forEach(video => {
+        const rect = video.getBoundingClientRect();
+        const center = window.innerWidth / 2;
+
+        // si está cerca del centro
+        if (rect.left < center && rect.right > center) {
+            video.play().catch(()=>{});
+        } else {
+            video.pause();
+            video.currentTime = 0;
+        }
+    });
+}
+
+
+                let autoRotate = setInterval(() => {
+    currRotation -= 0.5;
+    carousel.style.transform = `rotateY(${currRotation}deg)`;
+    controlVideos();
+}, 80);
+
 
                 let isDown = false, startX, startRotation;
                 container.addEventListener('mousedown', (e) => { isDown = true; clearInterval(autoRotate); startX = e.pageX; startRotation = currRotation; });
