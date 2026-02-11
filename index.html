@@ -1,1 +1,904 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz San Valentín ❤️</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy&family=Comic+Relief:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="https://www.dl.dropboxusercontent.com/scl/fi/98pzoqmxxorvwosmivfjk/back1.webp?rlkey=znfnwyes7xfxmeo2pii9jo4lc&st=618e5hgv">
+    <link rel="preload" as="image" href="https://www.dl.dropboxusercontent.com/scl/fi/62b16r17fi87mxluh0f2r/port1.jpg?rlkey=ltif5rsk4ak18kwaejqvklzj8&st=t50jw21y">
+    <link rel="preload" as="audio" href="https://www.dl.dropboxusercontent.com/scl/fi/gi2ti7c0mcqsylyc44kzy/sound1.mp3?rlkey=ntkvrknrqx61of4saxa2rb88u&st=abroueld">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+        /* --- MÓDULO DE COLORES --- */
+        :root {
+            --primary-color: #e91e63;      
+            --secondary-color: #f48fb1;    
+            --dark-color: #ad1457;         
+            --light-color: #fce4ec;         
+            --white: #ffffff;               
+            --success-color: #00e676;      
+            --error-color: #ff1744;        
+            --shadow-light: rgba(233, 30, 99, 0.15);
+            --shadow-medium: rgba(233, 30, 99, 0.3);
+            --shadow-strong: rgba(233, 30, 99, 0.5);
+            --text-shadow: 3px 3px 6px rgba(233, 30, 99, 0.3);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html, body {
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            font-family: 'Poppins', sans-serif;
+            position: fixed;
+        }
+        
+        #intro-screen {
+            width: 100%; 
+            height: 100%; 
+            position: relative;
+            background-image: url('https://www.dl.dropboxusercontent.com/scl/fi/98pzoqmxxorvwosmivfjk/back1.webp?rlkey=znfnwyes7xfxmeo2pii9jo4lc&st=618e5hgv');
+            background-size: cover;
+            background-position: center;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-direction: column;
+            z-index: 100;
+            transition: opacity 0.8s ease-out;
+        }
+
+        #intro-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .password-container {
+            position: relative;
+            z-index: 10;
+            
+            background: rgba(255, 255, 255, 0.286); 
+            
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            padding: 40px 30px;
+            border-radius: 30px;
+            border: 4px dashed var(--primary-color);
+            box-shadow: 0 0 25px var(--shadow-strong);
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pass-title {
+            font-family: 'Sour Gummy', cursive;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .pass-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 2px solid var(--secondary-color);
+            border-radius: 15px;
+            outline: none;
+            color: var(--dark-color);
+            font-family: 'Comic Relief', sans-serif;
+            transition: all 0.3s;
+            margin-bottom: 5px;
+        }
+
+        .pass-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--shadow-light);
+        }
+
+        /* --- ESTILOS DEL CORAZÓN SVG --- */
+        .heart-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            margin: 10px 0;
+        }
+
+        .heart-svg {
+            width: 80px;
+            height: 80px;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 0 5px rgba(233, 30, 99, 0.4)); 
+        }
+
+        .heart-svg.pulse {
+            animation: pulse-heart 1.5s infinite ease-in-out;
+            fill: var(--primary-color);
+        }
+
+        .heart-svg.success {
+            fill: var(--success-color);
+            filter: drop-shadow(0 0 20px var(--success-color));
+            transform: scale(1.2);
+            animation: none;
+        }
+
+        .heart-svg.error {
+            fill: var(--error-color);
+            filter: drop-shadow(0 0 20px var(--error-color));
+            animation: none; 
+        }
+
+        @keyframes pulse-heart {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        .status-msg {
+            font-family: 'Comic Relief', sans-serif;
+            font-weight: 700;
+            min-height: 1.5rem;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .hint-text {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 15px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .error-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        #main-page {
+            display: none; 
+            width: 100%; 
+            height: 100%; 
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-image: url('https://www.dl.dropboxusercontent.com/scl/fi/hqfcmy3k31023ekhi3ihy/back2.webp?rlkey=wqjxz7zbwt3ierep7j7hsonpm&st=5np9k5mb');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 30px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        .main-title {
+            font-family: 'Sour Gummy', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.9), 0 0 15px var(--shadow-medium);
+            font-weight: 700;
+            animation: slideDown 1s ease-out;
+        }
+
+        /* --- CONTENEDORES GENÉRICOS --- */
+        .section-container {
+            width: 100%; 
+            max-width: 900px; 
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            padding: 35px; 
+            border-radius: 40px; 
+            border: 3px dashed var(--primary-color);
+            outline: 3px dashed var(--secondary-color);
+            outline-offset: -12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .section-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--shadow-medium);
+        }
+
+        .section-title {
+            font-family: 'Sour Gummy', cursive;
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-shadow: var(--text-shadow);
+        }
+
+        /* --- TIEMPO JUNTOS --- */
+        #center-image {
+            width: 200px; 
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 15px 0 25px 0;
+            border: 5px solid var(--white);
+            box-shadow: 0 8px 20px var(--shadow-medium);
+            transition: transform 0.3s ease;
+        }
+        
+        #center-image:hover { transform: scale(1.05) rotate(3deg); }
+
+        .time-boxes {
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .time-box { 
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 10px 15px;
+            min-width: 85px; 
+            text-align: center; 
+            border: 2px solid var(--secondary-color);
+        }
+        
+        .time-box span { 
+            font-size: 2rem;
+            font-weight: 700; 
+            display: block;
+            color: var(--primary-color);
+            font-family: 'Comic Relief', sans-serif;
+        }
+        
+        .time-box label {
+            font-size: 0.8rem; 
+            color: var(--dark-color); 
+            display: block; 
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* --- MÚSICA --- */
+        .album-cover-container { width: 100%; display: flex; justify-content: center; margin-bottom: 15px; }
+        
+        #album-cover { 
+            width: 160px; height: 160px; 
+            border-radius: 50%; 
+            box-shadow: 0 8px 25px var(--shadow-medium); 
+            animation: rotateAlbum 8s linear infinite; 
+            object-fit: cover;
+            border: 4px solid var(--white);
+        }
+        .paused-album { animation-play-state: paused !important; }
+        
+        @keyframes rotateAlbum { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .song-title { font-size: 1.4rem; color: var(--primary-color); font-weight: 700; margin-top: 10px;}
+        .artist-name { font-size: 1rem; color: var(--secondary-color); margin-bottom: 10px; font-weight: 600; }
+        
+        .progress-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .progress-bar-wrapper { 
+            width: 90%; height: 8px; background: rgba(255,255,255,0.6); 
+            border-radius: 10px; cursor: pointer; position: relative; margin: 10px 0;
+        }
+        #musicProgressBar { width: 0%; height: 100%; background: var(--primary-color); border-radius: 10px; pointer-events: none; }
+        .progress-thumb { 
+            width: 16px; height: 16px; background: var(--white); border: 3px solid var(--primary-color);
+            border-radius: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%);
+            cursor: grab; z-index: 10;
+        }
+        .progress-thumb:active { cursor: grabbing; }
+        .progress-time { width: 90%; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--dark-color); font-weight: 600; }
+        
+        .controls { display: flex; justify-content: center; gap: 20px; align-items: center; margin-top: 15px; }
+        .control-btn { background: none; border: none; color: var(--secondary-color); font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+        .control-btn:hover { color: var(--primary-color); transform: scale(1.1); }
+        .control-btn.active { color: var(--primary-color); }
+        .play-pause { font-size: 2.2rem; color: var(--primary-color); background: var(--white); width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 5px 15px var(--shadow-light); display: flex; align-items: center; justify-content: center; }
+
+        /* --- CARRUSEL 3D --- */
+        .carousel-container-3d { 
+            position: relative; width: 100%; height: 350px; 
+            perspective: 1000px; overflow: visible; 
+            display: flex; justify-content: center; align-items: center;
+        }
+        
+        .carousel-3d {
+            position: absolute; width: 100%; height: 100%; 
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-out;
+        }
+        
+        .carousel-item-3d {
+            position: absolute; 
+            top: 50%; left: 50%;
+            width: 200px; height: 280px;
+            margin-left: -100px; margin-top: -140px; 
+            border-radius: 15px; overflow: hidden; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            border: 4px solid var(--white);
+            background: var(--white);
+        }
+        
+        .carousel-item-3d img,
+.carousel-item-3d video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+
+        /* --- MENSAJE --- */
+        .message-frame {
+            position: relative;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--secondary-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #love-message-text {
+            font-family: 'Comic Relief', cursive;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            white-space: pre-wrap;
+            text-align: justify;
+        }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .section-title { font-size: 2.2rem; }
+            
+            .carousel-container-3d {
+                width: 120%; 
+                margin-left: -10%; 
+                overflow: visible; 
+            }
+            .carousel-item-3d { width: 150px; height: 210px; margin-left: -75px; margin-top: -105px; }
+
+            .time-box { min-width: 70px; padding: 8px; }
+            .time-box span { font-size: 1.5rem; }
+            
+            .section-container { padding: 25px 15px; outline-offset: -8px; }
+        }
+        
+        /* Efectos click */
+        .love-phrase {
+            position: absolute;
+            font-family: 'Comic Relief', cursive;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            pointer-events: none;
+            animation: floatUpAndFade 2.5s forwards;
+            z-index: 9999;
+            white-space: nowrap;
+        }
+        .heart-particle {
+            position: absolute;
+            font-size: 1.2rem;
+            pointer-events: none;
+            animation: explode 1s ease-out forwards;
+            z-index: 9998;
+        }
+        @keyframes floatUpAndFade { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-80px); } }
+        @keyframes explode { 0% { opacity: 1; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(var(--x), var(--y)); } }
+
+    </style>
+</head>
+<body>
+
+    <!-- PANTALLA DE INICIO (CONTRASEÑA) -->
+    <div id="intro-screen">
+        <div class="password-container" id="passContainer">
+            <h2 class="pass-title">Ingresa nuestra contraseña...</h2>
+            
+            <input type="text" id="passwordInput" class="pass-input" placeholder="Ingresa aquí..." autocomplete="off">
+            
+            <!-- Corazón SVG -->
+            <div class="heart-wrapper">
+                <svg class="heart-svg pulse" id="heartSvg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            
+            <!-- Mensaje de Feedback -->
+            <div id="statusMsg" class="status-msg"></div>
+
+            <p class="hint-text">Pista: "Nuestra canción favorita"(CONTRASEÑA : blue) MODIFICAR EN const SECRET_PASSWORD </p>
+        </div>
+    </div>
+
+    <!-- PÁGINA PRINCIPAL -->
+    <div id="main-page">
+        
+        <!-- TÍTULO CAMBIADO A SAN VALENTÍN -->
+        <h1 class="main-title">Feliz San Valentín ❤️</h1>
+
+        <!-- NUESTRO TIEMPO JUNTOS -->
+        <div class="section-container" id="time-counter">
+            <h2 class="section-title">Nuestro tiempo juntos</h2>
+            <img id="center-image" src="https://www.dl.dropboxusercontent.com/scl/fi/seyauglg7eidwifzpmh44/img1.png?rlkey=i6p8tb99kjcnv9mi5rottyb94&st=e7infkdw" alt="Nosotros">
+            <div class="time-boxes">
+                <div class="time-box"><span id="years">0</span><label>Años</label></div>
+                <div class="time-box"><span id="months">0</span><label>Meses</label></div>
+                <div class="time-box"><span id="days">0</span><label>Días</label></div>
+                <div class="time-box"><span id="hours">0</span><label>Horas</label></div>
+                <div class="time-box"><span id="minutes">0</span><label>Minutos</label></div>
+                <div class="time-box"><span id="seconds">0</span><label>Segs</label></div>
+            </div>
+        </div>
+
+        <div class="section-container" id="music-section">
+            <h2 class="section-title">Nuestra canción</h2>
+            <div class="album-cover-container">
+                <img id="album-cover" src="" alt="Portada" class="paused-album">
+            </div>
+            <div class="song-info">
+                <div id="song-title" class="song-title">Cargando...</div>
+                <div id="artist-name" class="artist-name">...</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar-wrapper" id="progressBarWrapper">
+                    <div id="musicProgressBar"></div>
+                    <div class="progress-thumb" id="progressThumb"></div>
+                </div>
+                <div class="progress-time">
+                    <span id="current-time">0:00</span>
+                    <span id="total-time">0:00</span>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="control-btn shuffle" id="shuffleBtn"><i class="fas fa-random"></i></button>
+                <button class="control-btn prev"><i class="fas fa-backward"></i></button>
+                <button class="control-btn play-pause"><i class="fas fa-play"></i></button>
+                <button class="control-btn next"><i class="fas fa-forward"></i></button>
+                <button class="control-btn repeat" id="repeatBtn"><i class="fas fa-redo"></i></button>
+            </div>
+        </div>
+
+        <!-- NUESTROS RECUERDOS -->
+        <div class="section-container">
+    <h2 class="section-title">Tus fotitos</h2>
+
+    <div class="carousel-container-3d" id="carouselContainer">
+        <div class="carousel-3d" id="imageCarousel">
+
+            <div class="carousel-item-3d">
+                <img src="img/1.jpeg" alt="1">
+            </div>
+
+          <div class="carousel-item-3d">
+                <img src="img/2.jpeg" alt="2">
+            </div>
+
+            <div class="carousel-item-3d">
+                <video src="videos/3.mp4" autoplay muted loop playsinline preload="metadata"></video>
+            </div>
+
+            <div class="carousel-item-3d">
+                <video src="videos/4.mp4" autoplay muted loop playsinline preload="metadata"></video>
+            </div>
+
+            <div class="carousel-item-3d">
+                <video src="videos/5.mp4" autoplay muted loop playsinline preload="metadata"></video>
+            </div>
+
+          <div class="carousel-item-3d">
+                <video src="videos/6.mp4" autoplay muted loop playsinline preload="metadata"></video>
+            </div>
+
+          <div class="carousel-item-3d">
+                <video src="videos/7.mp4" autoplay muted loop playsinline preload="metadata"></video>
+            </div>
+          
+          <div class="carousel-item-3d">
+                <video src="videos/8.mp4" autoplay muted loop playsinline preload="metadata"></video>
+            </div>
+          
+        </div>
+
+    </div>
+</div>
+
+
+        <div class="section-container">
+            <h2 class="section-title">Mensaje de amor</h2>
+            <div class="message-frame">
+                <p id="love-message-text">
+¡Feliz San Valentín, mi amor! 🌹
+
+Hoy, en el día del amor, quiero recordarte lo increíblemente afortunado que soy de tenerte. Eres esa pieza que encaja perfectamente en mi vida, llenándola de colores, risas y momentos inolvidables.
+
+No necesito un día especial para saber cuánto te amo, pero hoy aprovecho cada segundo para celebrarte, para agradecerte por tu paciencia, tu ternura y por ser mi compañera de aventuras.
+
+Prometo seguir construyendo este camino contigo, cuidando nuestro amor como el tesoro más preciado. Gracias por ser mi Valentín hoy y siempre.
+
+Te amo con todo mi corazón. 💕
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="musicPlayer"></audio>
+
+    <script type="module">
+        // PRELOAD DE IMÁGENES DE FONDO
+        const preloadImages = () => {
+            const img1 = new Image();
+            const img2 = new Image();
+            img1.src = 'https://www.dl.dropboxusercontent.com/scl/fi/98pzoqmxxorvwosmivfjk/back1.webp?rlkey=znfnwyes7xfxmeo2pii9jo4lc&st=618e5hgv';
+            img2.src = 'https://www.dl.dropboxusercontent.com/scl/fi/hqfcmy3k31023ekhi3ihy/back2.webp?rlkey=wqjxz7zbwt3ierep7j7hsonpm&st=5np9k5mb';
+        };
+        preloadImages();
+
+        // CONFIGURACIÓN DE FECHA
+        const startDateConfig = { day: 8, month: 1, year: 2025 };
+
+
+        const SECRET_PASSWORD = "blue"; 
+
+        const passInput = document.getElementById('passwordInput');
+        const heartSvg = document.getElementById('heartSvg');
+        const statusMsg = document.getElementById('statusMsg');
+        const passContainer = document.getElementById('passContainer');
+
+        // Función para validar contraseña
+        function checkPassword() {
+            const val = passInput.value.trim().toLowerCase(); 
+            
+            // Si la contraseña es correcta
+            if (val === SECRET_PASSWORD) {
+                heartSvg.classList.remove('pulse', 'error');
+                heartSvg.classList.add('success');
+                
+                statusMsg.textContent = "¡Correcto!";
+                statusMsg.style.color = "var(--success-color)";
+                passInput.disabled = true;
+
+                setTimeout(() => {
+                    startExperience();
+                }, 1000);
+            } else {
+                heartSvg.classList.remove('pulse', 'success');
+                heartSvg.classList.add('error');
+                
+                statusMsg.textContent = "Contraseña incorrecta...";
+                statusMsg.style.color = "var(--error-color)";
+
+                passContainer.classList.add('error-shake');
+                setTimeout(() => {
+                    passContainer.classList.remove('error-shake');
+
+                    setTimeout(() => {
+                        heartSvg.classList.remove('error');
+                        heartSvg.classList.add('pulse'); // Vuelve a latir en rosa
+                        statusMsg.textContent = "";
+                        passInput.value = ""; // Opcional: limpiar input
+                        passInput.focus();
+                    }, 1500);
+                }, 400);
+            }
+        }
+
+        // Event listener para tecla Enter
+        passInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // --- INICIO DE LA EXPERIENCIA ---
+        function startExperience() {
+            const intro = document.getElementById('intro-screen');
+            const main = document.getElementById('main-page');
+            
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.display = 'none';
+                main.style.display = 'flex';
+                initCarousel();
+                startTimer();
+                loadSong(currentSongIndex);
+                setTimeout(() => playMusic(), 500);
+            }, 800);
+        };
+
+        // --- EFECTOS CLICK ---
+        const lovePhrases = ["Te amo ❤️", "Eres mi vida", "Juntos siempre", "Me encantas", "Eres mi sol ☀️", "Mi San Valentín 💘", "Amor eterno", "Feliz día"];
+
+        document.getElementById('main-page').addEventListener('click', (e) => {
+            if (e.target.closest('.control-btn') || e.target.closest('.progress-bar-wrapper') || e.target.closest('.progress-thumb')) return;
+            createClickEffect(e.clientX, e.clientY);
+        });
+
+        function createClickEffect(x, y) {
+            const phrase = document.createElement('div');
+            phrase.className = 'love-phrase';
+            phrase.textContent = lovePhrases[Math.floor(Math.random() * lovePhrases.length)];
+            phrase.style.left = `${x}px`;
+            phrase.style.top = `${y}px`;
+            document.body.appendChild(phrase);
+
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.textContent = '❤️';
+                heart.style.left = `${x}px`;
+                heart.style.top = `${y}px`;
+                const angle = Math.random() * 360;
+                const distance = 50 + Math.random() * 100;
+                heart.style.setProperty('--x', `${Math.cos(angle * Math.PI / 180) * distance}px`);
+                heart.style.setProperty('--y', `${Math.sin(angle * Math.PI / 180) * distance}px`);
+                heart.style.color = `hsl(${330 + Math.random()*30}, 100%, 60%)`;
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+            setTimeout(() => phrase.remove(), 2500);
+        }
+
+        // --- CONTADOR ---
+        function startTimer() {
+            const start = new Date(startDateConfig.year, startDateConfig.month - 1, startDateConfig.day);
+            function update() {
+                const now = new Date();
+                const diff = now - start;
+                if (diff < 0) return;
+                const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+                const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
+                const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById('years').textContent = years;
+                document.getElementById('months').textContent = months;
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            }
+            setInterval(update, 1000);
+            update();
+        }
+
+        // --- MÚSICA (Lógica intacta) ---
+        const music = document.getElementById('musicPlayer');
+        const playPauseBtn = document.querySelector('.play-pause');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const progressBarWrapper = document.getElementById('progressBarWrapper');
+        const musicProgressBar = document.getElementById('musicProgressBar');
+        const progressThumb = document.getElementById('progressThumb');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+        const albumCover = document.getElementById('album-cover');
+        const titleEl = document.getElementById('song-title');
+        const artistEl = document.getElementById('artist-name');
+
+        const songs = [
+            { title: "blue", artist: "yung kai", cover: "https://www.dl.dropboxusercontent.com/scl/fi/62b16r17fi87mxluh0f2r/port1.jpg?rlkey=ltif5rsk4ak18kwaejqvklzj8&st=t50jw21y", audio: "https://www.dl.dropboxusercontent.com/scl/fi/gi2ti7c0mcqsylyc44kzy/sound1.mp3?rlkey=ntkvrknrqx61of4saxa2rb88u&st=abroueld" }
+        ];
+        let currentSongIndex = 0;
+            let isShuffleOn = false;
+            let isRepeatOn = false;
+            let isDraggingThumb = false;
+
+            function loadSong(index) {
+                const song = songs[index];
+                titleEl.textContent = song.title;
+                artistEl.textContent = song.artist;
+                albumCover.src = song.cover;
+                music.src = song.audio;
+            }
+
+            function playMusic() {
+                music.play().then(() => {
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    albumCover.classList.remove('paused-album');
+                }).catch(e => console.log("Click necesario"));
+            }
+
+            function pauseMusic() {
+                music.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                albumCover.classList.add('paused-album');
+            }
+
+            playPauseBtn.addEventListener('click', () => music.paused ? playMusic() : pauseMusic());
+            
+            nextBtn.addEventListener('click', () => {
+                if (isShuffleOn) {
+                    let randomIndex;
+                    do {
+                        randomIndex = Math.floor(Math.random() * songs.length);
+                    } while (randomIndex === currentSongIndex && songs.length > 1);
+                    currentSongIndex = randomIndex;
+                } else {
+                    currentSongIndex = (currentSongIndex + 1) % songs.length;
+                }
+                loadSong(currentSongIndex);
+                playMusic();
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                if (music.currentTime > 3) {
+                    music.currentTime = 0;
+                } else {
+                    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+                    loadSong(currentSongIndex);
+                    playMusic();
+                }
+            });
+
+            // Botón Shuffle
+            shuffleBtn.addEventListener('click', () => {
+                isShuffleOn = !isShuffleOn;
+                shuffleBtn.classList.toggle('active', isShuffleOn);
+            });
+
+            // Botón Repeat
+            repeatBtn.addEventListener('click', () => {
+                isRepeatOn = !isRepeatOn;
+                repeatBtn.classList.toggle('active', isRepeatOn);
+            });
+
+            music.addEventListener('timeupdate', () => {
+                if(music.duration && !isDraggingThumb) {
+                    const percent = (music.currentTime / music.duration) * 100;
+                    musicProgressBar.style.width = `${percent}%`;
+                    progressThumb.style.left = `${percent}%`;
+                    let mins = Math.floor(music.currentTime / 60);
+                    let secs = Math.floor(music.currentTime % 60);
+                    if(secs < 10) secs = '0' + secs;
+                    currentTimeEl.textContent = `${mins}:${secs}`;
+                }
+            });
+
+            music.addEventListener('loadedmetadata', () => {
+                let mins = Math.floor(music.duration / 60);
+                let secs = Math.floor(music.duration % 60);
+                if(secs < 10) secs = '0' + secs;
+                totalTimeEl.textContent = `${mins}:${secs}`;
+            });
+
+            music.addEventListener('ended', () => {
+                if (isRepeatOn) {
+                    music.currentTime = 0;
+                    playMusic();
+                } else {
+                    nextBtn.click();
+                }
+            });
+
+            // Click en barra de progreso
+            progressBarWrapper.addEventListener('click', (e) => {
+                const rect = progressBarWrapper.getBoundingClientRect();
+                const offsetX = e.clientX - rect.left;
+                const percent = offsetX / rect.width;
+                music.currentTime = percent * music.duration;
+            });
+
+            // Arrastrar el thumb
+            progressThumb.addEventListener('mousedown', startDrag);
+            progressThumb.addEventListener('touchstart', startDrag);
+
+            function startDrag(e) {
+                isDraggingThumb = true;
+                e.preventDefault();
+                document.addEventListener('mousemove', onDrag);
+                document.addEventListener('mouseup', stopDrag);
+                document.addEventListener('touchmove', onDrag);
+                document.addEventListener('touchend', stopDrag);
+            }
+
+            function onDrag(e) {
+                if (!isDraggingThumb) return;
+                const rect = progressBarWrapper.getBoundingClientRect();
+                const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                let offsetX = clientX - rect.left;
+                offsetX = Math.max(0, Math.min(offsetX, rect.width));
+                const percent = offsetX / rect.width;
+                musicProgressBar.style.width = `${percent * 100}%`;
+                progressThumb.style.left = `${percent * 100}%`;
+                music.currentTime = percent * music.duration;
+            }
+
+            function stopDrag() {
+                isDraggingThumb = false;
+                document.removeEventListener('mousemove', onDrag);
+                document.removeEventListener('mouseup', stopDrag);
+                document.removeEventListener('touchmove', onDrag);
+                document.removeEventListener('touchend', stopDrag);
+            }
+
+            // --- CARRUSEL ---
+            function initCarousel() {
+                const container = document.getElementById('carouselContainer');
+                const carousel = document.getElementById('imageCarousel');
+                const items = document.querySelectorAll('.carousel-item-3d');
+                let currRotation = 0;
+                let radius = window.innerWidth < 768 ? 160 : 250; 
+                const theta = 360 / items.length;
+
+                function setupCarousel() {
+                    items.forEach((item, i) => {
+                        item.style.transform = `rotateY(${i * theta}deg) translateZ(${radius}px)`;
+                    });
+                }
+                setupCarousel();
+                window.addEventListener('resize', () => {
+                    radius = window.innerWidth < 768 ? 160 : 250;
+                    setupCarousel();
+                });
+
+                let autoRotate = setInterval(() => { currRotation -= 0.5; carousel.style.transform = `rotateY(${currRotation}deg)`; }, 50);
+
+                let isDown = false, startX, startRotation;
+                container.addEventListener('mousedown', (e) => { isDown = true; clearInterval(autoRotate); startX = e.pageX; startRotation = currRotation; });
+                container.addEventListener('touchstart', (e) => { isDown = true; clearInterval(autoRotate); startX = e.touches[0].pageX; startRotation = currRotation; });
+                
+                const handleMove = (x) => { if(!isDown) return; currRotation = startRotation + (x - startX) * 0.5; carousel.style.transform = `rotateY(${currRotation}deg)`; };
+                
+                container.addEventListener('mousemove', (e) => handleMove(e.pageX));
+                container.addEventListener('touchmove', (e) => handleMove(e.touches[0].pageX));
+                
+                const stopDrag = () => { if(isDown) { isDown = false; autoRotate = setInterval(() => { currRotation -= 0.5; carousel.style.transform = `rotateY(${currRotation}deg)`; }, 50); }};
+                container.addEventListener('mouseup', stopDrag);
+                container.addEventListener('mouseleave', stopDrag);
+                container.addEventListener('touchend', stopDrag);
+            }
+        </script>
+    </body>
+</html>
