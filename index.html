@@ -652,6 +652,7 @@ Te amo con todo mi corazón. 💕
             setTimeout(() => {
                 intro.style.display = 'none';
                 main.style.display = 'flex';
+                unlockVideos();
                 initCarousel();
                 startTimer();
                 loadSong(currentSongIndex);
@@ -941,6 +942,21 @@ Te amo con todo mi corazón. 💕
             }
 
             // --- CARRUSEL ---
+        function unlockVideos() {
+    const vids = document.querySelectorAll('video');
+
+    vids.forEach(v => {
+        v.muted = true;
+        const p = v.play();
+        if (p !== undefined) {
+            p.then(() => {
+                v.pause();
+                v.currentTime = 0;
+            }).catch(() => {});
+        }
+    });
+}
+
             function initCarousel() {
                 const container = document.getElementById('carouselContainer');
                 const carousel = document.getElementById('imageCarousel');
