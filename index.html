@@ -956,10 +956,10 @@ let radius = window.innerWidth < 768 ? 160 : 250;
                     });
                 }
                 setupCarousel();
+                controlVideos();
                 window.addEventListener('resize', () => {
                     radius = window.innerWidth < 768 ? 160 : 250;
                     setupCarousel();
-                    controlVideos();
                 });
 
 function controlVideos() {
@@ -1000,7 +1000,17 @@ function controlVideos() {
                 container.addEventListener('mousemove', (e) => handleMove(e.pageX));
                 container.addEventListener('touchmove', (e) => handleMove(e.touches[0].pageX));
                 
-                const stopDrag = () => { if(isDown) { isDown = false; autoRotate = setInterval(() => { currRotation -= 0.5; carousel.style.transform = `rotateY(${currRotation}deg)`; }, 50); }};
+                const stopDrag = () => { 
+    if(isDown) { 
+        isDown = false; 
+        autoRotate = setInterval(() => { 
+            currRotation -= 0.5; 
+            carousel.style.transform = `rotateY(${currRotation}deg)`; 
+            controlVideos();
+        }, 80); 
+    }
+};
+
                 container.addEventListener('mouseup', stopDrag);
                 container.addEventListener('mouseleave', stopDrag);
                 container.addEventListener('touchend', stopDrag);
