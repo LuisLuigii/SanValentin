@@ -537,7 +537,7 @@
             </div>
 
           <div class="carousel-item-3d">
-                <video src="videos/7.mp4" muted loop playsinline preload="metadata"></video>
+                <video src="videos/7.mp4" muted loop playsinline preload="none"></video>
             </div>
           
           <div class="carousel-item-3d">
@@ -960,6 +960,7 @@ let radius = window.innerWidth < 768 ? 160 : 250;
                 window.addEventListener('resize', () => {
                     radius = window.innerWidth < 768 ? 160 : 250;
                     setupCarousel();
+                    controlVideos();
                 });
 
 function controlVideos() {
