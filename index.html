@@ -521,19 +521,19 @@
             </div>
 
             <div class="carousel-item-3d">
-                <video src="videos/3.mp4" muted loop playsinline preload="metadata"></video>
+                <video src="videos/3.mp4" muted loop playsinline preload="none"></video>
             </div>
 
             <div class="carousel-item-3d">
-                <video src="videos/4.mp4" muted loop playsinline preload="metadata"></video>
+                <video src="videos/4.mp4" muted loop playsinline preload="none"></video>
             </div>
 
             <div class="carousel-item-3d">
-                <video src="videos/5.mp4" muted loop playsinline preload="metadata"></video>
+                <video src="videos/5.mp4" muted loop playsinline preload="none"></video>
             </div>
 
           <div class="carousel-item-3d">
-                <video src="videos/6.mp4" muted loop playsinline preload="metadata"></video>
+                <video src="videos/6.mp4" muted loop playsinline preload="none"></video>
             </div>
 
           <div class="carousel-item-3d">
@@ -541,7 +541,7 @@
             </div>
           
           <div class="carousel-item-3d">
-                <video src="videos/8.mp4" muted loop playsinline preload="metadata"></video>
+                <video src="videos/8.mp4" muted loop playsinline preload="none"></video>
             </div>
           
         </div>
@@ -946,8 +946,9 @@ Te amo con todo mi corazón. 💕
                 const carousel = document.getElementById('imageCarousel');
                 const items = document.querySelectorAll('.carousel-item-3d');
                 let currRotation = 0;
-                let radius = window.innerWidth < 768 ? 160 : 250; 
-                const theta = 360 / items.length;
+const theta = 360 / items.length;
+let radius = window.innerWidth < 768 ? 160 : 250;
+
 
                 function setupCarousel() {
                     items.forEach((item, i) => {
@@ -958,24 +959,29 @@ Te amo con todo mi corazón. 💕
                 window.addEventListener('resize', () => {
                     radius = window.innerWidth < 768 ? 160 : 250;
                     setupCarousel();
+                    controlVideos();
                 });
 
-                function controlVideos() {
+function controlVideos() {
+    const items = document.querySelectorAll('.carousel-item-3d');
     const videos = document.querySelectorAll('.carousel-item-3d video');
 
-    videos.forEach(video => {
-        const rect = video.getBoundingClientRect();
-        const center = window.innerWidth / 2;
+    // calcular índice frontal
+    let index = Math.round((-currRotation % 360) / theta);
+    if (index < 0) index += items.length;
+    index = index % items.length;
 
-        // si está cerca del centro
-        if (rect.left < center && rect.right > center) {
+    videos.forEach((video, i) => {
+        const parentIndex = Array.from(items).indexOf(video.parentElement);
+
+        if (parentIndex === index) {
             video.play().catch(()=>{});
         } else {
             video.pause();
-            video.currentTime = 0;
         }
     });
 }
+
 
 
                 let autoRotate = setInterval(() => {
