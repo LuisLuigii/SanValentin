@@ -964,24 +964,14 @@ let radius = window.innerWidth < 768 ? 160 : 250;
                 });
 
 function controlVideos() {
-    const items = document.querySelectorAll('.carousel-item-3d');
     const videos = document.querySelectorAll('.carousel-item-3d video');
 
-    // calcular índice frontal
-    let index = Math.round((-currRotation % 360) / theta);
-    if (index < 0) index += items.length;
-    index = index % items.length;
-
-    videos.forEach((video, i) => {
-        const parentIndex = Array.from(items).indexOf(video.parentElement);
-
-        if (parentIndex === index) {
-            video.play().catch(()=>{});
-        } else {
-            video.pause();
-        }
+    videos.forEach(video => {
+        video.muted = true;
+        video.play().catch(()=>{});
     });
 }
+
 
 
 
